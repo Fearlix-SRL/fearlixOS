@@ -86,7 +86,7 @@ screens:
           description: System applications for all desktop environments.
           default: true
           packages:
-            - Vorta Backup: org.borgbase.Vorta
+            - Vorta Backup: com.borgbase.Vorta
             - Fedora Media Writer: org.fedoraproject.MediaWriter
             - Flatseal (Permission Manager): com.github.tchx84.Flatseal
             - Font Downloader: org.gustavoperedo.FontDownloader
@@ -128,8 +128,8 @@ screens:
       title: "All done!"
       links:
         - "Install Starship promt":
-            run: alacritty -e /var/home/luca/progetti/temp/starship.sh
+            run: alacritty -e /usr/share/fearlix-scripts/starship.sh
         - "Build and create containers":
-            run: alacritty -e /var/home/luca/progetti/temp/containers.sh
+            run: alacritty -e /usr/share/fearlix-scripts/containers.sh
       description: |
         Fearlix-OS is now installed and ready to use.
