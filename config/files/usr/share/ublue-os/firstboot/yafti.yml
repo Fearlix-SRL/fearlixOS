@@ -54,6 +54,7 @@ screens:
       show_terminal: true
       package_manager: yafti.plugin.flatpak
       package_manager_defaults:
+        user: false
         system: true
       groups:
         Core GNOME Apps:
