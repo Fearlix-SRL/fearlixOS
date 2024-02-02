@@ -6,7 +6,6 @@ screens:
     source: yafti.screen.title
     values:
       title: "Welcome to Fearlix-OS"
-      icon: "/path/to/icon"
       description: |
         This guided installer will help you get started with your new system.
   can-we-modify-your-flatpaks:
@@ -68,6 +67,7 @@ screens:
             - Clocks: org.gnome.clocks
             - Connections: org.gnome.Connections
             - Contacts: org.gnome.Contacts
+            - Decoder: com.belmoussaoui.Decoder
             - Disk Usage Analyzer: org.gnome.baobab
             - Document Scanner: org.gnome.SimpleScan
             - Document Viewer: org.gnome.Evince
@@ -85,7 +85,7 @@ screens:
           description: System applications for all desktop environments.
           default: true
           packages:
-            - Deja Dup Backups: org.gnome.DejaDup
+            - Vorta Backup: org.borgbase.Vorta
             - Fedora Media Writer: org.fedoraproject.MediaWriter
             - Flatseal (Permission Manager): com.github.tchx84.Flatseal
             - Font Downloader: org.gustavoperedo.FontDownloader
@@ -95,7 +95,6 @@ screens:
           packages:
             - Brave: com.brave.Browser
             - Google Chrome: com.google.Chrome
-            - Microsoft Edge: com.microsoft.Edge
             - Opera: com.opera.Opera
         Office:
           description: Boost your productivity.
@@ -105,28 +104,31 @@ screens:
             - OnlyOffice: org.onlyoffice.desktopeditors
             - Obsidian: md.obsidian.Obsidian
             - Slack: com.slack.Slack
+            - Telegram: org.telegram.desktop
             - Standard Notes: org.standardnotes.standardnotes
             - Thunderbird Email: org.mozilla.Thunderbird
-        Streaming:
-          description: Stream to the Internet.
+        Media:
+          description: Media manipulation utilities.
           default: false
           packages:
-            - OBS Studio: com.obsproject.Studio
-            - VkCapture for OBS: com.obsproject.Studio.OBSVkCapture
-            - Gstreamer for OBS: com.obsproject.Studio.Plugin.Gstreamer
-            - Gstreamer VAAPI for OBS: com.obsproject.Studio.Plugin.GStreamerVaapi
-            - Boatswain for Streamdeck: com.feaneron.Boatswain
+            - GIMP: org.gimp.GIMP
+            - Inkscape: org.inkscape.Inkscape
+        Development:
+          description: Software development utilities.
+          default: false
+          packages:
+            - Postman: com.getpostman.Postman
+            - DBeaver Community: io.dbeaver.DBeaverCommunity
+            - GitHub Desktop: io.github.shiftey.Desktop
+            - Podman Desktop: io.podman_desktop.PodmanDesktop
   final-screen:
     source: yafti.screen.title
     values:
       title: "All done!"
-      icon: "/path/to/icon"
       links:
-        - "Install More Applications":
-            run: /usr/bin/gnome-software
-        - "Website":
-            run: /usr/bin/xdg-open https://ublue.it
-        - "Join the Discord Community":
-            run: /usr/bin/xdg-open https://discord.gg/XjG48C7VHx
+        - "Install Starship promt":
+            run: alacritty -e /var/home/luca/progetti/temp/starship.sh
+        - "Build and create containers":
+            run: alacritty -e /var/home/luca/progetti/temp/containers.sh
       description: |
         Fearlix-OS is now installed and ready to use.
