@@ -122,14 +122,35 @@ screens:
             - DBeaver Community: io.dbeaver.DBeaverCommunity
             - GitHub Desktop: io.github.shiftey.Desktop
             - Podman Desktop: io.podman_desktop.PodmanDesktop
+  scripts:
+    source: yafti.screen.package
+    values:
+      title: Other usefull things to install
+      show_terminal: true
+      package_manager: yafti.plugin.run
+      groups:
+        Containers:
+          description: Clone and build dev containers
+          default: false
+          packages:
+            - Clone Containers: git clone https://github.com/fearlix-srl/dev-containers.git
+            - Build Arch: podman build -t arch dev-containers/arch
+            - Create Arch: distrobox create -i arch arch
+            - Add alias (ct): grep 'distrobox enter' ~/.bashrc || echo "alias ct='distrobox enter'" >> ~/.bashrc
+        Starship:
+          description: Install and configure starship
+          default: false
+          packages:
+            - Install Starship: wget -c /tmp/starship.tar.gz https://github.com/starship/starship/releases/latest/download/starship-x86_64-unknown-linux-musl.tar.gz -O - | tar -xz -C ~/.local/bin/
+            - Enable Starship: grep starship ~/.bashrc || echo "eval \"\$(starship init bash)\"" >> ~/.bashrc
   final-screen:
     source: yafti.screen.title
     values:
       title: "All done!"
       links:
-        - "Install Starship promt":
-            run: alacritty -e /usr/share/fearlix-scripts/starship.sh
-        - "Build and create containers":
-            run: alacritty -e /usr/share/fearlix-scripts/containers.sh
+        - "Fearlix Website":
+            run: /usr/bin/xdg-open https://www.fearlix.com
+        - "GitHub Repository":
+            run: /usr/bin/xdg-open https://github.com/fearlix-srl/fearlix-os
       description: |
         Fearlix-OS is now installed and ready to use.

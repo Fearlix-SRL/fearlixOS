@@ -1,5 +1,5 @@
 ublue_variants:
-  - label: ublue-os/startingpoint
+  - label: fearlix-srl/fearlix-os
     ks: /kickstart/ublue-os.ks
     flavors:
-      - label: startingpoint
+      - label: fearlix-os

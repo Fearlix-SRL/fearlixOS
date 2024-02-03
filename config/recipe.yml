@@ -78,3 +78,8 @@ modules:
         - FiraMono
 
   - type: yafti
+
+  - type: bling
+    install:
+      - ublue-update
+      - laptop
