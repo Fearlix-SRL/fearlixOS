@@ -138,11 +138,45 @@ screens:
             - Create Arch: distrobox create -i arch arch
             - Add alias (ct): grep 'distrobox enter' ~/.bashrc || echo "alias ct='distrobox enter'" >> ~/.bashrc
         Starship:
-          description: Install and configure starship
+          description: Install and configure Starship
           default: false
           packages:
-            - Install Starship: wget -c /tmp/starship.tar.gz https://github.com/starship/starship/releases/latest/download/starship-x86_64-unknown-linux-musl.tar.gz -O - | tar -xz -C ~/.local/bin/
+            - Install Starship: mkdir -p ~/.local/bin/ && wget -c /tmp/starship.tar.gz https://github.com/starship/starship/releases/latest/download/starship-x86_64-unknown-linux-musl.tar.gz -O - | tar -xz -C ~/.local/bin/
             - Enable Starship: grep starship ~/.bashrc || echo "eval \"\$(starship init bash)\"" >> ~/.bashrc
+        Livepaper:
+          description: Install and configure Livepaper
+          default: false
+          packages:
+            - Install Livepaper: mkdir -p ~/.local/bin/ && wget -c /tmp/starship.tar.gz https://github.com/lucapatarca/livepaper/releases/latest/download/livepaper-x86_64.tar.gz -O - | tar -xz -C ~/.local/bin/
+            - Download foreground image: wget -O ~/.local/share/backgrounds/foreground.png https://github.com/LucaPatarca/livepaper/blob/v0.2.1/foreground.png?raw=true
+            - Setup systemd service: |
+                mkdir -p ~/.config/systemd/user &&
+                echo "[Unit]
+                Description=Circadian Wallpaper Service
+                PartOf=graphical-session.target
+
+                [Service]
+                Type=simple
+                ExecStart=$HOME/.local/bin/livepaper
+
+                [Install]
+                WantedBy=graphical-session.target" > ~/.config/systemd/user/wallpaper.service &&
+                systemctl --user daemon-reload &&
+                systemctl --user enable --now wallpaper.service &&
+                sleep 1 &&
+                sed -i 's/exec_loop.*/exec_loop = true/' ~/.config/livepaper/config.toml &&
+                echo "foreground_path = '$HOME/.local/share/backgrounds/foreground.png'" >> ~/.config/livepaper/config.toml &&
+                systemctl --user restart wallpaper.service
+# TODO add pop-launcher
+  user-settings:
+    source: yafti.screen.consent
+    values:
+      condition:
+        run: whoami | grep luca
+      title: Luca's settings
+      description: We identified you as Luca, do you want to apply Luca's personal settings?
+      actions:
+        - run: bash /usr/share/ublue-os/firstboot/luca-config.sh
   final-screen:
     source: yafti.screen.title
     values:
