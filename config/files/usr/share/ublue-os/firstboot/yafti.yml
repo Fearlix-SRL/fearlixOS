@@ -168,6 +168,7 @@ screens:
                 echo "foreground_path = '$HOME/.local/share/backgrounds/foreground.png'" >> ~/.config/livepaper/config.toml &&
                 systemctl --user restart wallpaper.service
 # TODO add pop-launcher
+# TODO add project menu
   user-settings:
     source: yafti.screen.consent
     values:

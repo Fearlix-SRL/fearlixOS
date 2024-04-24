@@ -8,11 +8,19 @@ gsettings set org.gnome.system.locale region 'it_IT.UTF-8'
 gsettings set org.gnome.shell favorite-apps "['firefox.desktop', 'org.gnome.Nautilus.desktop', 'org.gnome.Software.desktop', 'Alacritty.desktop']"
 gsettings set org.gnome.desktop.wm.preferences focus-mode 'sloppy'
 gsettings set org.gnome.shell.extensions.pop-shell smart-gaps true
+gsettings set org.gnome.desktop.interface monospace-font-name 'FiraMono Nerd Font Mono 10'
+gsettings set org.gnome.desktop.peripherals.touchpad tap-to-click true
+gsettings set org.gnome.settings-daemon.plugins.color night-light-enabled=true
+gsettings set org.gnome.settings-daemon.plugins.color night-light-schedule-automatic=true
+gsettings set org.gnome.settings-daemon.plugins.color night-light-schedule-from=17.0
+gsettings set org.gnome.settings-daemon.plugins.color night-light-temperature 'uint32 2700'
+gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-type='nothing'
 
 # keybindings
 gsettings set org.gnome.settings-daemon.plugins.media-keys home "@as []"
 gsettings set org.gnome.settings-daemon.plugins.media-keys email "@as []"
-gsettings set org.gnome.shell.extensions.pop-shell tile-enter "['<Super>r']"
+# gsettings set org.gnome.shell.extensions.pop-shell tile-enter "['<Super>r']"
+gsettings set org.gnome.desktop.wm.keybindings begin-resize "['<Super>r']"
 gsettings set org.gnome.shell.extensions.pop-shell activate-launcher "['<Super>d']"
 gsettings set org.gnome.shell.extensions.pop-shell focus-down "['<Super>n']"
 gsettings set org.gnome.shell.keybindings focus-active-notification "@as []"
@@ -28,3 +36,4 @@ gsettings set org.gnome.settings-daemon.plugins.media-keys custom-keybindings "[
 gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ name 'Terminale'
 gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ binding '<Super>Return'
 gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ command 'alacritty'
+
