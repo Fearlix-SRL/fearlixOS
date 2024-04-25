@@ -65,11 +65,6 @@ modules:
       repo-name: flathub
       repo-title: "Flathub (user)" # Optional; this sets the remote's user-facing name in graphical frontends like GNOME Software
 
-  - type: script
-    scripts:
-      # this sets up the proper policy & signing files for signed images to work
-      - signing.sh
-
   - type: fonts
     fonts:
       nerd-fonts:
