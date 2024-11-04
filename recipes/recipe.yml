@@ -1,5 +1,5 @@
 # image will be published to ghcr.io/<user>/<name>
-name: fearlix-os
+name: fearlixOS
 # description will be included in the image's metadata
 description: Fedora Silverblue by Fearlix SRL
 

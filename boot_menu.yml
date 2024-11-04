@@ -1,5 +1,0 @@
-ublue_variants:
-  - label: fearlix-srl/fearlix-os
-    ks: /kickstart/ublue-os.ks
-    flavors:
-      - label: fearlix-os
