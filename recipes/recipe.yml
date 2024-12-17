@@ -38,6 +38,7 @@ modules:
       - virt-viewer
       - libguestfs-tools
       - python3-libguestfs
+      - podman-compose
     remove:
 
   - type: default-flatpaks

@@ -133,9 +133,8 @@ screens:
           description: Clone and build dev containers
           default: false
           packages:
-            - Clone Containers: git clone https://github.com/fearlix-srl/dev-containers.git
-            - Build Arch: podman build -t arch dev-containers/arch
-            - Create Arch: distrobox create -i arch arch
+            - Pull Containers: alacritty -e podman login registry.lucapatarca.cloud && podman pull registry.lucapatarca.cloud/arch
+            - Create Arch: distrobox create -i registry.lucapatarca.cloud/arch arch
             - Add alias (ct): grep 'distrobox enter' ~/.bashrc || echo "alias ct='distrobox enter'" >> ~/.bashrc
         Starship:
           description: Install and configure Starship
@@ -167,8 +166,6 @@ screens:
                 sed -i 's/exec_loop.*/exec_loop = true/' ~/.config/livepaper/config.toml &&
                 echo "foreground_path = '$HOME/.local/share/backgrounds/foreground.png'" >> ~/.config/livepaper/config.toml &&
                 systemctl --user restart wallpaper.service
-# TODO add pop-launcher
-# TODO add project menu
   user-settings:
     source: yafti.screen.consent
     values:
