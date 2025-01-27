@@ -8,6 +8,7 @@ screens:
       title: "Welcome to Fearlix-OS"
       description: |
         This guided installer will help you get started with your new system.
+
   can-we-modify-your-flatpaks:
     source: yafti.screen.consent
     values:
@@ -21,6 +22,7 @@ screens:
         - run: flatpak remote-delete --user --force fedora
         - run: flatpak remove --system --noninteractive --all
         - run: flatpak remote-add --if-not-exists --system flathub https://flathub.org/repo/flathub.flatpakrepo
+
   check-system-flathub:
     source: yafti.screen.consent
     values:
@@ -31,6 +33,7 @@ screens:
         We have detected that you don't have Flathub's repository on your system. We will now add that repository to your system-wide list.
       actions:
         - run: flatpak remote-add --if-not-exists --system flathub https://flathub.org/repo/flathub.flatpakrepo
+
   gnome-settings:
     source: yafti.screen.consent
     values:
@@ -47,6 +50,7 @@ screens:
         - run: gnome-extensions enable pop-shell@system76.com
         - run: gnome-extensions enable dash-to-dock@micxgx.gmail.com
         - run: gsettings set org.gnome.shell.extensions.dash-to-dock hot-keys false
+
   applications:
     source: yafti.screen.package
     values:
@@ -122,6 +126,7 @@ screens:
             - DBeaver Community: io.dbeaver.DBeaverCommunity
             - GitHub Desktop: io.github.shiftey.Desktop
             - Podman Desktop: io.podman_desktop.PodmanDesktop
+
   scripts:
     source: yafti.screen.package
     values:
@@ -133,9 +138,20 @@ screens:
           description: Clone and build dev containers
           default: false
           packages:
-            - Pull Containers: alacritty -e podman login registry.lucapatarca.cloud && podman pull registry.lucapatarca.cloud/arch
-            - Create Arch: distrobox create -i registry.lucapatarca.cloud/arch arch
-            - Add alias (ct): grep 'distrobox enter' ~/.bashrc || echo "alias ct='distrobox enter'" >> ~/.bashrc
+            - Add Make Alias: |
+                grep 'distrobox create' ~/.bashrc ||
+                echo "mkct() {
+                  podman pull ghcr.io/fearlix-srl/$1
+                  distrobox list | grep $1 && yes | distrobox rm $1
+                  distrobox create -i ghcr.io/fearlix-srl/$1 $1
+                  distrobox enter -n $1 -- post-install.sh
+                }" >> ~/.bashrc
+            - Add Enter Alias: grep 'distrobox enter' ~/.bashrc || echo "alias ct='distrobox enter'" >> ~/.bashrc
+            - Create Base: mkct base
+            - Create Flutter: mkct flutter
+            - Create Database: mkct database
+            - Create Node: mkct node
+            - Create Go: mkct go
         Starship:
           description: Install and configure Starship
           default: false
@@ -166,15 +182,30 @@ screens:
                 sed -i 's/exec_loop.*/exec_loop = true/' ~/.config/livepaper/config.toml &&
                 echo "foreground_path = '$HOME/.local/share/backgrounds/foreground.png'" >> ~/.config/livepaper/config.toml &&
                 systemctl --user restart wallpaper.service
+
   user-settings:
-    source: yafti.screen.consent
+    source: yafti.screen.package
     values:
       condition:
         run: whoami | grep luca
       title: Luca's settings
       description: We identified you as Luca, do you want to apply Luca's personal settings?
-      actions:
-        - run: bash /usr/share/ublue-os/firstboot/luca-config.sh
+      show_terminal: true
+      package_manager: yafti.plugin.run
+      groups:
+        Config:
+          description: Clone luca's personal configs
+          default: false
+          packages:
+            - Add config alias: echo 'alias config="git --git-dir $HOME/.dotfiles-repo --work-tree $HOME"' >> ~/.bashrc
+            - Clone config: cd $HOME && config init && config remote add origin git@github.com:lucapatarca/linux-config.git && config fetch && config checkout main
+            - Restore Neovim: cd $HOME && config restore .config/nvim
+        Settings:
+          description: Set luca's personal settings
+          default: false
+          packages:
+            - Install settings: /usr/share/ublue-os/firstboot/luca-config.sh
+
   final-screen:
     source: yafti.screen.title
     values:
@@ -183,6 +214,6 @@ screens:
         - "Fearlix Website":
             run: /usr/bin/xdg-open https://www.fearlix.com
         - "GitHub Repository":
-            run: /usr/bin/xdg-open https://github.com/fearlix-srl/fearlix-os
+            run: /usr/bin/xdg-open https://github.com/fearlix-srl/fearlixos
       description: |
         Fearlix-OS is now installed and ready to use.
