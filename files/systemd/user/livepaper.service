@@ -7,4 +7,4 @@ Type=simple
 ExecStart=/usr/bin/livepaper
 
 [Install]
-WantedBy=graphical-session.target"
+WantedBy=graphical-session.target
