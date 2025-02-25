@@ -1,4 +1,4 @@
-#!/urs/bin/env bash
+#!/usr/bin/env bash
 
 echo "Pulling $1 image..."
 podman pull ghcr.io/fearlix-srl/$1 >/dev/null 2>/dev/null
