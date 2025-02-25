@@ -1,0 +1,10 @@
+[Unit]
+Description=Livepaper Service
+PartOf=graphical-session.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/livepaper
+
+[Install]
+WantedBy=graphical-session.target"

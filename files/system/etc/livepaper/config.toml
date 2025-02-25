@@ -1,0 +1,10 @@
+sunrise_start = 6.0
+sunrise_end = 10.0
+sunset_start = 16.0
+sunset_end = 20.0
+update_mins = 5
+frame_height = 1080
+frame_widht = 1920
+save_path = '/tmp/wallpaper.png'
+foreground_path = '/usr/share/livepaper/foreground.png'
+exec_loop = true

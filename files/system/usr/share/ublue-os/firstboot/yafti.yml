@@ -138,50 +138,24 @@ screens:
           description: Clone and build dev containers
           default: false
           packages:
-            - Add Make Alias: |
-                grep 'distrobox create' ~/.bashrc ||
-                echo "mkct() {
-                  podman pull ghcr.io/fearlix-srl/\$1
-                  distrobox list | grep \$1 && yes | distrobox rm \$1
-                  distrobox create -i ghcr.io/fearlix-srl/\$1 \$1
-                  distrobox enter -n \$1 -- post-install.sh
-                }" >> ~/.bashrc && . ~/.bashrc
-            - Add Enter Alias: grep 'distrobox enter' ~/.bashrc || echo "alias ct='distrobox enter'" >> ~/.bashrc
-            - Create Base: mkct base
-            - Create Flutter: mkct flutter
-            - Create Database: mkct database
-            - Create Node: mkct node
-            - Create Go: mkct go
+            - Add Enter Alias: |
+                grep 'alias ct' ~/.bashrc || 
+                echo "alias ct='distrobox enter'" >> ~/.bashrc
+            - Create Base: /usr/bin/mkct base
+            - Create Flutter: /usr/bin/mkct flutter
+            - Create Database: /usr/bin/mkct database
+            - Create Node: /usr/bin/mkct node
+            - Create Go: /usr/bin/mkct go
         Starship:
-          description: Install and configure Starship
+          description: Enable Starship
           default: false
           packages:
-            - Install Starship: mkdir -p ~/.local/bin/ && wget -c /tmp/starship.tar.gz https://github.com/starship/starship/releases/latest/download/starship-x86_64-unknown-linux-musl.tar.gz -O - | tar -xz -C ~/.local/bin/
             - Enable Starship: grep starship ~/.bashrc || echo "eval \"\$(starship init bash)\"" >> ~/.bashrc
         Livepaper:
-          description: Install and configure Livepaper
+          description: Enable Livepaper
           default: false
           packages:
-            - Install Livepaper: mkdir -p ~/.local/bin/ && wget -c /tmp/starship.tar.gz https://github.com/lucapatarca/livepaper/releases/latest/download/livepaper-x86_64.tar.gz -O - | tar -xz -C ~/.local/bin/
-            - Download foreground image: wget -O ~/.local/share/backgrounds/foreground.png https://github.com/LucaPatarca/livepaper/blob/v0.2.1/foreground.png?raw=true
-            - Setup systemd service: |
-                mkdir -p ~/.config/systemd/user &&
-                echo "[Unit]
-                Description=Circadian Wallpaper Service
-                PartOf=graphical-session.target
-
-                [Service]
-                Type=simple
-                ExecStart=$HOME/.local/bin/livepaper
-
-                [Install]
-                WantedBy=graphical-session.target" > ~/.config/systemd/user/wallpaper.service &&
-                systemctl --user daemon-reload &&
-                systemctl --user enable --now wallpaper.service &&
-                sleep 1 &&
-                sed -i 's/exec_loop.*/exec_loop = true/' ~/.config/livepaper/config.toml &&
-                echo "foreground_path = '$HOME/.local/share/backgrounds/foreground.png'" >> ~/.config/livepaper/config.toml &&
-                systemctl --user restart wallpaper.service
+            - Enable service: systemctl --user enable --now livepaper.service
 
   user-settings:
     source: yafti.screen.package
