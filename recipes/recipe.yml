@@ -48,8 +48,4 @@ modules:
 
   - type: yafti
 
-  - type: bling
-    install:
-      - ublue-update
-
   - type: signing # this sets up the proper policy & signing files for signed images to work fully
