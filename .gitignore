@@ -3,3 +3,4 @@ cosign.key
 Containerfile
 /Containerfile
 /Containerfile.*
+cosign.private

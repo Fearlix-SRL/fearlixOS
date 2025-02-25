@@ -141,11 +141,11 @@ screens:
             - Add Make Alias: |
                 grep 'distrobox create' ~/.bashrc ||
                 echo "mkct() {
-                  podman pull ghcr.io/fearlix-srl/$1
-                  distrobox list | grep $1 && yes | distrobox rm $1
-                  distrobox create -i ghcr.io/fearlix-srl/$1 $1
-                  distrobox enter -n $1 -- post-install.sh
-                }" >> ~/.bashrc
+                  podman pull ghcr.io/fearlix-srl/\$1
+                  distrobox list | grep \$1 && yes | distrobox rm \$1
+                  distrobox create -i ghcr.io/fearlix-srl/\$1 \$1
+                  distrobox enter -n \$1 -- post-install.sh
+                }" >> ~/.bashrc && . ~/.bashrc
             - Add Enter Alias: grep 'distrobox enter' ~/.bashrc || echo "alias ct='distrobox enter'" >> ~/.bashrc
             - Create Base: mkct base
             - Create Flutter: mkct flutter
