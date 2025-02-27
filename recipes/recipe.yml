@@ -26,7 +26,6 @@ modules:
       # gnome extensions
       - gnome-shell-extension-pop-shell
       - xprop
-      - gnome-shell-extension-dash-to-dock
       - gnome-shell-extension-gsconnect
       - nautilus-gsconnect
       - webextension-gsconnect
@@ -40,6 +39,17 @@ modules:
       - libguestfs-tools
       - python3-libguestfs
       - podman-compose
+    remove:
+      - gnome-extensions-app
+
+  - type: gnome-extensions
+    install:
+      - Blur my Shell
+      - Caffeine
+      - Color Picker
+      - Forge
+      - User Themes
+      - 307 # dash-to-dock
 
   - type: fonts
     fonts:

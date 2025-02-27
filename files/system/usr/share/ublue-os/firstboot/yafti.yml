@@ -86,6 +86,9 @@ screens:
             - Text Editor: org.gnome.TextEditor
             - Videos (Player): org.gnome.Totem
             - Weather: org.gnome.Weather
+            - Brasero: org.gnome.Brasero
+            - Network Displays: org.gnome.NetworkDisplays
+            - Ark: org.kde.ark
         System Apps:
           description: System applications for all desktop environments.
           default: true
@@ -94,6 +97,8 @@ screens:
             - Fedora Media Writer: org.fedoraproject.MediaWriter
             - Flatseal (Permission Manager): com.github.tchx84.Flatseal
             - Font Downloader: org.gustavoperedo.FontDownloader
+            - Dconf Editor: ca.desrt.dconf-editor
+            - Mission Center: io.missioncenter.MissionCenter
         Web Browsers:
           description: Additional browsers to complement or replace Firefox.
           default: false
@@ -118,14 +123,26 @@ screens:
           packages:
             - GIMP: org.gimp.GIMP
             - Inkscape: org.inkscape.Inkscape
+            - KDEnlive: org.kde.kdenlive
+            - Spotify: com.spotify.Client
+            - VLC: org.videolan.VLC
         Development:
           description: Software development utilities.
           default: false
           packages:
             - Postman: com.getpostman.Postman
             - DBeaver Community: io.dbeaver.DBeaverCommunity
+            - Mongo Compass: com.mongodb.Compass
             - GitHub Desktop: io.github.shiftey.Desktop
             - Podman Desktop: io.podman_desktop.PodmanDesktop
+        Other:
+          description: Other tools and apps
+          packages:
+            - PrusaSlicer: com.prusa3d.PrusaSlicer
+            - FreeCAD: org.freecad.FreeCAD
+            - Transmission Remote: io.github.TransmissionRemoteGtk
+            - KiCad: org.kicad.KiCad
+            - PuTTY: uk.org.greenend.chiark.sgtatham.putty
 
   scripts:
     source: yafti.screen.package
@@ -172,9 +189,9 @@ screens:
           description: Clone luca's personal configs
           default: false
           packages:
-            - Add config alias: echo 'alias config="git --git-dir $HOME/.dotfiles-repo --work-tree $HOME"' >> ~/.bashrc
-            - Clone config: source ~/.bashrc && cd $HOME && config init && config remote add origin git@github.com:lucapatarca/linux-config.git && config fetch && config checkout main
-            - Restore Neovim: source ~/.bashrc && cd $HOME && config restore .config/nvim
+            - Add config alias: grep -w 'alias config' ~/.bashrc || echo 'alias config="git --git-dir $HOME/.dotfiles-repo --work-tree $HOME"' >> ~/.bashrc
+            - Clone config: cd $HOME && git --git-dir $HOME/.dotfiles-repo --work-tree $HOME init && git --git-dir $HOME/.dotfiles-repo --work-tree $HOME remote add origin https://github.com/lucapatarca/linux-config.git && git --git-dir $HOME/.dotfiles-repo --work-tree $HOME fetch && git --git-dir $HOME/.dotfiles-repo --work-tree $HOME checkout main && git --git-dir $HOME/.dotfiles-repo --work-tree $HOME config status.showUntrackedFiles no
+            - Restore .config: cd $HOME && git --git-dir $HOME/.dotfiles-repo --work-tree $HOME restore .config
         Settings:
           description: Set luca's personal settings
           default: false
