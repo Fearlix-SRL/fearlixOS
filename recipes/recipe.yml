@@ -40,8 +40,6 @@ modules:
       - libguestfs-tools
       - python3-libguestfs
       - podman-compose
-    remove:
-      - gnome-extensions-app
 
   - type: gnome-extensions
     install:
