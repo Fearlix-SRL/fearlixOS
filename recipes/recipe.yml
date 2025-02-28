@@ -23,6 +23,7 @@ modules:
       - btrfs-assistant
       - neovim
       - alacritty
+      - vorta
       # gnome extensions
       - gnome-shell-extension-pop-shell
       - xprop

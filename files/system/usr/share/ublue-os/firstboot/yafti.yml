@@ -93,7 +93,6 @@ screens:
           description: System applications for all desktop environments.
           default: true
           packages:
-            - Vorta Backup: com.borgbase.Vorta
             - Fedora Media Writer: org.fedoraproject.MediaWriter
             - Flatseal (Permission Manager): com.github.tchx84.Flatseal
             - Font Downloader: org.gustavoperedo.FontDownloader
