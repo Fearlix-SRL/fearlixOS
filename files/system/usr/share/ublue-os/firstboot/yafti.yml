@@ -49,6 +49,7 @@ screens:
         - run: gnome-extensions enable background-logo@fedorahosted.org
         - run: gnome-extensions enable pop-shell@system76.com
         - run: gnome-extensions enable dash-to-dock@micxgx.gmail.com
+        - run: gnome-extensions enable caffeine@patapon.info
         - run: gsettings set org.gnome.shell.extensions.dash-to-dock hot-keys false
 
   applications:
@@ -130,12 +131,12 @@ screens:
           default: false
           packages:
             - Postman: com.getpostman.Postman
-            - DBeaver Community: io.dbeaver.DBeaverCommunity
             - Mongo Compass: com.mongodb.Compass
             - GitHub Desktop: io.github.shiftey.Desktop
             - Podman Desktop: io.podman_desktop.PodmanDesktop
         Other:
           description: Other tools and apps
+          default: false
           packages:
             - PrusaSlicer: com.prusa3d.PrusaSlicer
             - FreeCAD: org.freecad.FreeCAD
@@ -174,28 +175,47 @@ screens:
             - Copy configuration: mkdir -p ~/.config/livepaper && cp /etc/livepaper/config.toml ~/.config/livepaper/config.toml
             - Enable service: systemctl --user enable --now livepaper.service
 
-  user-settings:
+  luca-backup:
+    source: yafti.screen.title
+    values:
+      condition:
+        run: whoami | grep luca
+      title: "Hi, Luca!"
+      links:
+        - "Open Vorta":
+            run: vorta -d
+      description: |
+        We identified you as Luca, please import vorta backup and mount it to ~/Documents/backup
+
+  luca-settings:
     source: yafti.screen.package
     values:
       condition:
         run: whoami | grep luca
       title: Luca's settings
-      description: We identified you as Luca, do you want to apply Luca's personal settings?
+      description: Here you can restore everything from your backup
       show_terminal: true
       package_manager: yafti.plugin.run
       groups:
-        Config:
-          description: Clone luca's personal configs
+        GitHub:
+          description: Clone configs from github
           default: false
           packages:
             - Add config alias: grep -w 'alias config' ~/.bashrc || echo 'alias config="git --git-dir $HOME/.dotfiles-repo --work-tree $HOME"' >> ~/.bashrc
             - Clone config: cd $HOME && git --git-dir $HOME/.dotfiles-repo --work-tree $HOME init && git --git-dir $HOME/.dotfiles-repo --work-tree $HOME remote add origin https://github.com/lucapatarca/linux-config.git && git --git-dir $HOME/.dotfiles-repo --work-tree $HOME fetch && git --git-dir $HOME/.dotfiles-repo --work-tree $HOME checkout main && git --git-dir $HOME/.dotfiles-repo --work-tree $HOME config status.showUntrackedFiles no
             - Restore .config: cd $HOME && git --git-dir $HOME/.dotfiles-repo --work-tree $HOME restore .config
         Settings:
-          description: Set luca's personal settings
+          description: Restore luca's personal settings
           default: false
           packages:
-            - Install settings: /usr/share/ublue-os/firstboot/luca-config.sh
+            - Restore Config: rsync -a --exclude='.local/share/applications/' ~/Documents/backup/var/home/luca/{.config,.local,.icons,.mozilla,.pki,.ssh,.themes,.var,.vscode,.bash_history,.bash_profile,.bashrc,.flutter,.gitconfig,.all.dconf.settings} ~/
+            - Restore Settings: dconf load -f / < ~/.all.dconf.settings
+        Backup:
+          description: Restore data from backup
+          default: false
+          packages:
+            - Projects: rsync -a ~/Documents/backup/var/home/luca/{progetti,dev-containers,otherContainers} ~/
+            - Documents: rsync -a ~/Documents/backup/var/home/luca/{Desktop,Documents,Downloads,Music,Pictures,Videos} ~/
 
   final-screen:
     source: yafti.screen.title
