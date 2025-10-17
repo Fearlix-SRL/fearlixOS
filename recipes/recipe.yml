@@ -15,32 +15,34 @@ modules:
       - source: system
         destination: /
 
-  - type: rpm-ostree
+  - type: dnf
     repos:
-      - https://copr.fedorainfracloud.org/coprs/atim/starship/repo/fedora-%OS_VERSION%/atim-starship-fedora-%OS_VERSION%.repo
+      copr:
+        - atim/starship
     install:
-      - distrobox
-      - starship
-      - btrfs-assistant
-      - neovim
-      - alacritty
-      - vorta
-      # gnome extensions
-      - gnome-shell-extension-pop-shell
-      - xprop
-      - gnome-shell-extension-gsconnect
-      - nautilus-gsconnect
-      - webextension-gsconnect
-      # virtualization
-      - virt-install
-      - libvirt-daemon-config-network
-      - libvirt-daemon-kvm
-      - qemu-kvm
-      - virt-manager
-      - virt-viewer
-      - libguestfs-tools
-      - python3-libguestfs
-      - podman-compose
+      packages:
+        - distrobox
+        - starship
+        - btrfs-assistant
+        - neovim
+        - alacritty
+        - vorta
+        # gnome extensions
+        - gnome-shell-extension-pop-shell
+        - xprop
+        - gnome-shell-extension-gsconnect
+        - nautilus-gsconnect
+        - webextension-gsconnect
+        # virtualization
+        - virt-install
+        - libvirt-daemon-config-network
+        - libvirt-daemon-kvm
+        - qemu-kvm
+        - virt-manager
+        - virt-viewer
+        - libguestfs-tools
+        - python3-libguestfs
+        - podman-compose
 
   - type: gnome-extensions
     install:
