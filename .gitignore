@@ -4,3 +4,4 @@ Containerfile
 /Containerfile
 /Containerfile.*
 cosign.private
+/.bluebuild-scripts_*
