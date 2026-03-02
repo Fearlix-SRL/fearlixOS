@@ -34,6 +34,7 @@ modules:
         - neovim
         - alacritty
         - vorta
+        - kde-connect
         # virtualization
         - virt-install
         - libvirt-daemon-config-network
