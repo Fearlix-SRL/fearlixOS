@@ -49,7 +49,7 @@ modules:
       - Blur my Shell
       - Caffeine
       - Color Picker
-      - Forge
+#     - Forge
       - User Themes
       - 307 # dash-to-dock
 

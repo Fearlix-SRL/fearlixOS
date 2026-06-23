@@ -57,8 +57,8 @@ modules:
     system:
       enabled:
         - cosmic-greeter.service
-      disabled:
-        - gdm.service
+#     disabled:
+#       - gdm.service
     user:
       disabled:
         - livepaper.service
